@@ -82,7 +82,7 @@ def main():
                 st.markdown(f'Image after {option}')
                 st.image(processed_image)
         except Exception as e:
-            st.error(f'Error: {e}. Pastikan file yang diunggah adalah gambar.')
+            st.error(f'Error: {e}.')
 
 # Fungsi untuk menerapkan filter yang dipilih
 def apply_filter(option, image_cv2, rotation_angle=None):
