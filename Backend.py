@@ -144,24 +144,6 @@ def translation(image, x, y):
     except Exception as e:
         print(f"Error: {e}. Terjadi kesalahan saat melakukan translasi pada gambar.")
 
-# Countour
-def contour(image):
-    try:
-        contours, _ = cv2.findContours(image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        cv2.drawContours(image, contours, -1, (0, 255, 0), 3)
-        img_conv = Image.fromarray(image)
-        return img_conv
-    except Exception as e:
-        print(f"Error: {e}. Terjadi kesalahan saat melakukan countour pada gambar.")
-
-# Invers
-def inverse(image):
-    try:
-        inverted_image = cv2.bitwise_not(image)
-        img_conv = Image.fromarray(inverted_image)
-        return img_conv
-    except Exception as e:
-        print(f"Error: {e}. Terjadi kesalahan saat melakukan invers pada gambar.")
 
 # Closing
 def closing(image, kernel_size=(5, 5)):

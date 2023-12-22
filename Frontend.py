@@ -9,6 +9,8 @@ def main():
     # Menampilkan judul aplikasi
     st.header("Selamat datang di PixelPlay!")
     
+    st.subheader("Tempat bermain untuk melakukan filter pada gambar")
+
     # Mengunggah gambar
     image_upload = st.file_uploader('Silahkan upload gambar...', type=['jpg', 'png', 'jpeg'])
     
@@ -23,48 +25,47 @@ def main():
             image_cv2 = cv2.cvtColor(image_cv2, cv2.COLOR_BGR2BGRA)
             
             # Memilih filter yang akan digunakan
-            option = st.selectbox('Pilih filter yang akan digunakan', ('Edge Detection', 'Grayscale', 'Negative Transformation', 'Gaussian Blur', 'Reduce Noise', 'Sharping', 'Emboising', 'High Boost', 'Low Pass', 'Rotasi', 'Translasi', 'Countour', 'Invers', 'Closing', 'Dilasi', 'Erosi', 'Opening'))
+            option = st.selectbox('Pilih filter yang akan digunakan', ('Edge Detection', 'Grayscale', 'Negative Transformation', 'Gaussian Blur', 'Reduce Noise', 'Sharping', 'Emboising', 'High Boost', 'Low Pass', 'Rotasi', 'Translasi', 'Closing', 'Dilasi', 'Erosi', 'Opening'))
             
             if option:
                 st.write('Kamu memilih:', option)
                 
                 # Tambahkan deskripsi filter
                 if option == 'Edge Detection':
-                    st.write('Filter ini digunakan untuk mendeteksi tepi pada gambar.')
+                    st.write('Filter ini adalah teknik untuk menemukan perubahan intensitas yang tajam dalam gambar. Filter ini meninggalkan hanya tepi gambar, menghasilkan gambar yang menonjolkan detail struktural dan kontur.')
                 elif option == 'Grayscale':
-                    st.write('Filter ini mengubah gambar ke skala abu-abu.')
+                    st.write('Filter ini mengubah gambar berwarna menjadi gambar yang hanya memiliki tingkat keabuan. Ini dilakukan dengan menggabungkan informasi warna merah, hijau, dan biru pada setiap piksel dan menghasilkan gambar monokromatik.')
                 elif option == 'Negative Transformation':
-                    st.write('Filter ini menghasilkan transformasi negatif dari gambar.')
+                    st.write('Filter ini mengubah nilai intensitas warna pada setiap piksel menjadi nilai negatifnya. Ini menghasilkan gambar negatif di mana warna yang semula terang menjadi gelap, dan sebaliknya.')
                 elif option == 'Gaussian Blur':
-                    st.write('Filter ini digunakan untuk memberikan efek blur pada gambar.')
+                    st.write('Filter ini meratakan gambar dengan menerapkan filter Gaussian. Ini mengurangi detail tingkat tinggi, menciptakan efek blur, dan dapat digunakan untuk mengurangi noise serta memberikan kesan lebih halus pada gambar.')
                 elif option == 'Reduce Noise':
-                    st.write('Filter ini digunakan untuk mengurangi noise pada gambar.')
+                    st.write('Filter ini mengurangi noise pada gambar tanpa terlalu mempengaruhi detail utama. Metode non-local means denoising digunakan untuk meminimalkan noise yang terlihat sebagai variasi acak dan piksel yang tidak diinginkan.')
                 elif option == 'Sharping':
-                    st.write('Filter ini digunakan untuk mempertajam gambar.')
+                    st.write('Filter ini digunakan untuk mempertajam gambar dengan menerapkan operasi kernel tertentu. Ini meningkatkan ketajaman dan detail pada gambar.')
                 elif option == 'Emboising':
-                    st.write('Filter ini digunakan untuk menambahkan efek embos pada gambar.')
+                    st.write(' Filter emboss menambahkan efek tiga dimensi pada gambar dengan menekankan tepi dan perubahan intensitas tinggi. Ini menciptakan ilusi ketajaman dan dimensi.')
                 elif option == 'High Boost':
-                    st.write('Filter ini digunakan untuk menambahkan efek kecerahan pada gambar.')
+                    st.write(' High Boost filtering meningkatkan ketajaman gambar dengan menggunakan perbedaan antara gambar asli dan versi gambar yang telah dilewati oleh filter low-pass (misalnya, Gaussian Blur).')
                 elif option == 'Low Pass':
-                    st.write('Filter ini digunakan untuk menambahkan efek filter low pass pada gambar.')
+                    st.write(' Filter low pass meratakan gambar dan menghilangkan komponen frekuensi tinggi. Ini sering digunakan untuk meredam detail halus dan mengurangi noise.')
                 elif option == 'Rotasi':
-                    st.write('Filter ini digunakan untuk memutar gambar.')
+                    st.write('Filter rotasi memutar gambar sebesar sudut tertentu. Ini memungkinkan untuk mengubah orientasi gambar sesuai dengan kebutuhan.')
                     # Memungkinkan pengguna memasukkan sudut rotasi
                     rotation_angle = st.slider('Pilih sudut rotasi:', -180, 180, 0)
                 elif option == 'Translasi':
-                    st.write('Filter ini digunakan untuk mentranslasikan gambar.')
-                elif option == 'Countour':
-                    st.write('Filter ini digunakan untuk mengekstraksi kontur pada gambar.')
-                elif option == 'Invers':
-                    st.write('Filter ini menghasilkan invers dari gambar.')
+                    st.write('Translasi digunakan untuk memindahkan seluruh gambar ke arah tertentu. Ini membantu dalam menggeser posisi gambar.')
+                    # Memungkinkan pengguna memasukkan nilai x dan y untuk translasi
+                    translasi_x = st.slider('Masukkan nilai translasi x:', -100, 100, 0)
+                    translasi_y = st.slider('Masukkan nilai translasi y:', -100, 100, 0)
                 elif option == 'Closing':
-                    st.write('Filter ini digunakan untuk operasi closing pada gambar.')
+                    st.write('Filter ini  melibatkan dilasi diikuti oleh erosi. Ini digunakan untuk menutup celah-celah kecil dalam objek dan menghaluskan tepi.')
                 elif option == 'Dilasi':
-                    st.write('Filter ini digunakan untuk operasi dilasi pada gambar.')
+                    st.write('Filter ini memperluas batas objek dengan menambahkan piksel di sekitarnya. Ini sering digunakan untuk mengisi celah dan memperbesar objek.')
                 elif option == 'Erosi':
-                    st.write('Filter ini digunakan untuk operasi erosi pada gambar.')
+                    st.write('Filter ini mereduksi ukuran objek dengan menghapus piksel di sekitarnya. Ini berguna untuk menghilangkan detail kecil dan membuat objek lebih kecil.')
                 elif option == 'Opening':
-                    st.write('Filter ini digunakan untuk operasi opening pada gambar.')
+                    st.write('Filter ini adalah kebalikan dari closing, yang melibatkan erosi diikuti oleh dilasi. Ini membantu menghilangkan objek kecil dan meratakan tepi.')
                 
                 # Menampilkan gambar asli
                 st.header('Input image')
@@ -75,8 +76,11 @@ def main():
                 # Periksa apakah opsi adalah 'Rotasi' dan panggil fungsi rotation dengan sudut yang dipilih
                     if option == 'Rotasi':
                         processed_image = apply_filter(option, image_cv2, rotation_angle)
+                    elif option == 'Translasi':
+                        processed_image = apply_filter(option, image_cv2, translasi_x, translasi_y)
                     else:
                         processed_image = apply_filter(option, image_cv2)
+
                 
                 # Menampilkan gambar setelah diterapkan filter
                 st.markdown(f'Image after {option}')
@@ -85,7 +89,7 @@ def main():
             st.error(f'Error: {e}.')
 
 # Fungsi untuk menerapkan filter yang dipilih
-def apply_filter(option, image_cv2, rotation_angle=None):
+def apply_filter(option, image_cv2, rotation_angle=None, translasi_x=None, translasi_y=None):
     if option == 'Edge Detection':
         return edge_detection(image_cv2)
     elif option == 'Grayscale':
@@ -111,11 +115,11 @@ def apply_filter(option, image_cv2, rotation_angle=None):
         else:
             return image_cv2
     elif option == 'Translasi':
-        return translation(image_cv2)
-    elif option == 'Countour':
-        return contour(image_cv2)
-    elif option == 'Invers':
-        return inverse(image_cv2)
+        # Periksa apakah nilai translasi x dan y telah diberikan
+        if translasi_x is not None and translasi_y is not None:
+            return translation(image_cv2, translasi_x, translasi_y)
+        else:
+            return image_cv2
     elif option == 'Closing':
         return closing(image_cv2)
     elif option == 'Dilasi':
