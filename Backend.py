@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 from PIL import Image
+from PIL.ImageFilter import Kernel
+
 
 # Melakukan transformasi warping affine pada gambar
 def warpaffine(image):
@@ -184,3 +186,11 @@ def opening(image, kernel_size=(5, 5)):
         return img_conv
     except Exception as e:
         print(f"Error: {e}. Terjadi kesalahan saat melakukan opening pada gambar.")
+
+def pencil_sketch_col(image):
+    try:
+        sk_gray, sk_color = cv2.pencilSketch(image, sigma_s=60, sigma_r=0.07, shade_factor=0.1)
+        img_conv = Image.fromarray(sk_color)
+        return img_conv
+    except Exception as e:
+        print(f"Error: {e}. Terjadi kesalahan saat melakukan colour pencil sketch effect pada gambar.")

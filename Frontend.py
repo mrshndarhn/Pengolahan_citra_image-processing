@@ -25,7 +25,7 @@ def main():
             image_cv2 = cv2.cvtColor(image_cv2, cv2.COLOR_BGR2BGRA)
             
             # Memilih filter yang akan digunakan
-            option = st.selectbox('Pilih filter yang akan digunakan', ('Edge Detection', 'Grayscale', 'Negative Transformation', 'Gaussian Blur', 'Reduce Noise', 'Sharping', 'Emboising', 'High Boost', 'Low Pass', 'Rotasi', 'Translasi', 'Closing', 'Dilasi', 'Erosi', 'Opening'))
+            option = st.selectbox('Pilih filter yang akan digunakan', ('Edge Detection', 'Grayscale', 'Negative Transformation', 'Gaussian Blur', 'Reduce Noise', 'Sharping', 'Emboising', 'High Boost', 'Low Pass', 'Rotasi', 'Translasi', 'Closing', 'Dilasi', 'Erosi', 'Opening', 'Pencil Sketch'))
             
             if option:
                 st.write('Kamu memilih:', option)
@@ -66,6 +66,8 @@ def main():
                     st.write('Filter ini mereduksi ukuran objek dengan menghapus piksel di sekitarnya. Ini berguna untuk menghilangkan detail kecil dan membuat objek lebih kecil.')
                 elif option == 'Opening':
                     st.write('Filter ini adalah kebalikan dari closing, yang melibatkan erosi diikuti oleh dilasi. Ini membantu menghilangkan objek kecil dan meratakan tepi.')
+                elif option == 'Pencil Sketch':  # Added 'Colour Pencil Sketch Effect'
+                    st.write('Filter ini menghasilkan efek sketsa pensil berwarna pada gambar.')
                 
                 # Menampilkan gambar asli
                 st.header('Input image')
@@ -78,6 +80,8 @@ def main():
                         processed_image = apply_filter(option, image_cv2, rotation_angle)
                     elif option == 'Translasi':
                         processed_image = apply_filter(option, image_cv2, translasi_x, translasi_y)
+                    elif option == 'Pencil Sketch':
+                        processed_image = apply_filter(option, image_cv2)
                     else:
                         processed_image = apply_filter(option, image_cv2)
 
@@ -128,6 +132,9 @@ def apply_filter(option, image_cv2, rotation_angle=None, translasi_x=None, trans
         return erosion(image_cv2)
     elif option == 'Opening':
         return opening(image_cv2)
+    elif option == 'Pencil Sketch':
+        return pencil_sketch_col(image_cv2)
+    
 
 # Menjalankan aplikasi jika file dieksekusi langsung
 if __name__ == "__main__":
