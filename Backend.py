@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageEnhance
 
 
 # Melakukan transformasi warping affine pada gambar
@@ -206,11 +206,19 @@ def sharpen(image):
         print(f"Error: {e}. Terjadi kesalahan saat melakukan sharp effect pada gambar.")
 
 #Winter
-def winter(img):
-    increase_lookup_table = LookupTable([0, 64, 128, 256], [0, 80, 160, 256])
-    decrease_lookup_table = LookupTable([0, 64, 128, 256], [0, 50, 100, 256])
-    blue_channel, green_channel, red_channel = cv2.split(img)
-    red_channel = cv2.LUT(red_channel, decrease_lookup_table).astype(np.uint8)
-    blue_channel = cv2.LUT(blue_channel, increase_lookup_table).astype(np.uint8)
-    win = cv2.merge((blue_channel, green_channel, red_channel))
-    return win
+from PIL import Image, ImageEnhance
+
+from PIL import Image, ImageEnhance
+
+def warm(img):
+    # Membagi objek gambar menjadi saluran warna
+    r, g, b, a = cv2.split(img)
+    
+    # Meningkatkan kecerahan saluran merah (red)
+    increase_lookup_table = ImageEnhance.Brightness(Image.fromarray(r)).enhance(1.3)
+    # Mengurangi kecerahan saluran biru (blue)
+    decrease_lookup_table = ImageEnhance.Brightness(Image.fromarray(b)).enhance(0.8)
+
+    # Menggabungkan kembali saluran warna
+    return cv2.merge((np.array(increase_lookup_table), g, np.array(decrease_lookup_table), a))
+

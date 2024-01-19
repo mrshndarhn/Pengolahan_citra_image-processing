@@ -25,7 +25,7 @@ def main():
             image_cv2 = cv2.cvtColor(image_cv2, cv2.COLOR_BGR2BGRA)
             
             # Memilih filter yang akan digunakan
-            option = st.selectbox('Pilih filter yang akan digunakan', ('Edge Detection', 'Grayscale', 'Negative Transformation', 'Gaussian Blur', 'Reduce Noise', 'Sharping', 'Emboising', 'High Boost', 'Low Pass', 'Rotasi', 'Translasi', 'Closing', 'Dilasi', 'Erosi', 'Opening', 'Brightness Adjustment', 'Sharpen', 'Winter'))
+            option = st.selectbox('Pilih filter yang akan digunakan', ('Edge Detection', 'Grayscale', 'Negative Transformation', 'Gaussian Blur', 'Reduce Noise', 'Sharping', 'Emboising', 'High Boost', 'Low Pass', 'Rotasi', 'Translasi', 'Closing', 'Dilasi', 'Erosi', 'Opening', 'Brightness Adjustment', 'Sharpen'))
             
             if option:
                 st.write('Kamu memilih:', option)
@@ -66,13 +66,10 @@ def main():
                     st.write('Filter ini mereduksi ukuran objek dengan menghapus piksel di sekitarnya. Ini berguna untuk menghilangkan detail kecil dan membuat objek lebih kecil.')
                 elif option == 'Opening':
                     st.write('Filter ini adalah kebalikan dari closing, yang melibatkan erosi diikuti oleh dilasi. Ini membantu menghilangkan objek kecil dan meratakan tepi.')
-                elif option == 'Brightness Adjustment':  # Added 'Brightness Adjustment'
-                    st.write('Filter ini menyesuaikan kecerahan gambar.')
-                    brightness_value = st.slider('Pilih nilai kecerahan (beta):', -100, 100, 0)
                 elif option == 'Sharpen':  # Added 'Sharp Effect'
                     st.write('Filter ini meningkatkan ketajaman gambar dengan menerapkan efek tajam.')
-                elif option == 'Winter':
-                    st.write('Filter ini memberikan efek warna musim dingin pada gambar.')
+                elif option == 'Warm':
+                    st.write('Filter ini memberikan efek hangat pada gambar dengan menggabung kan brightness yang telah diturunkan dan dinaikan.')
 
                 # Menampilkan gambar asli
                 st.header('Input image')
@@ -85,8 +82,6 @@ def main():
                         processed_image = apply_filter(option, image_cv2, rotation_angle)
                     elif option == 'Translasi':
                         processed_image = apply_filter(option, image_cv2, translasi_x, translasi_y)
-                    elif option == 'Brightness Adjustment':  # Handle the new filter option
-                        processed_image = apply_filter(option, image_cv2, brightness_value)
                     elif option == 'Sharpen':  # Handle the new filter option
                         processed_image = apply_filter(option, image_cv2)
                     else:
@@ -139,12 +134,10 @@ def apply_filter(option, image_cv2, rotation_angle=None, translasi_x=None, trans
         return erosion(image_cv2)
     elif option == 'Opening':
         return opening(image_cv2)
-    elif option == 'Brightness Adjustment':
-        return bright(image_cv2)
     elif option == 'Sharpen':
         return sharpen(image_cv2)
-    elif option =='Winter':
-        return winter(image_cv2)
+    elif option =='Warm':
+        return warm(image_cv2)
     
 
 # Menjalankan aplikasi jika file dieksekusi langsung
